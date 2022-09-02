@@ -4,10 +4,10 @@ let app = new Vue({
     isShow: false,
     chatbox: '',
     comment: '',
+    noDOM: '',
     icon: `
     <div class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
     `,
-    noicon: '',
     loadingAnimation: `
     <div class="comment">
       <div class="spinner-box">
@@ -92,11 +92,11 @@ let app = new Vue({
       setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.msg(chatbox, this.noicon, 'user', 500, 0, 1500, 'ざっくり計算です。')
+      this.msg(chatbox, this.noDOM, 'user', 500, 0, 1500, 'ざっくり計算です。')
       // メッセージ２
       this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。')
       // メッセージ３
-      this.msg(chatbox, this.noicon, 'noicon_guide', 5000, 1, 6500, 'データをもとに、あなたの相場をざっくり計算します。')
+      this.msg(chatbox, this.noDOM, 'noicon_guide', 5000, 1, 6500, 'データをもとに、あなたの相場をざっくり計算します。')
     },
     /*-------------------------
       しっかり計算
@@ -107,11 +107,11 @@ let app = new Vue({
       setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.msg(chatbox, this.noicon, 'user', 500, 0, 1500, 'しっかり計算です。');
+      this.msg(chatbox, this.noDOM, 'user', 500, 0, 1500, 'しっかり計算です。');
       // メッセージ２
       this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。');
       // メッセージ３
-      this.msg(chatbox, this.noicon, 'noicon_guide', 5000, 1, 6500, 'マンション・アパートのお風呂リフォーム相場は');
+      this.msg(chatbox, this.noDOM, 'noicon_guide', 5000, 1, 6500, 'マンション・アパートのお風呂リフォーム相場は');
       // メッセージ４
       setTimeout(() => {
         chatbox.insertAdjacentHTML('beforeend', `
@@ -122,7 +122,7 @@ let app = new Vue({
         `)
       }, 7500);
       // メッセージ５
-      this.msg(chatbox, this.noicon, 'noicon_guide', 8500, 2, 10000, 'あなたの費用を、データをもとにしっかり計算します。');
+      this.msg(chatbox, this.noDOM, 'noicon_guide', 8500, 2, 10000, 'あなたの費用を、データをもとにしっかり計算します。');
     },
     // メッセージ内容
     msgHTML: function (chatbox, icon, className, msg, sec) {
@@ -135,6 +135,14 @@ let app = new Vue({
             </div>
         </div>
         `)
+      }, sec)
+    },
+    // 既読をつける
+    alreadyRead: function (num, sec) {
+      setTimeout(() => {
+        let user = document.querySelectorAll('.user .comment p');
+        console.log(user[num])
+        user[num].insertAdjacentHTML('afterbegin', `<span class="read">既読</span>`)
       }, sec)
     },
     // ローディングアニメーション
@@ -168,7 +176,12 @@ let app = new Vue({
       this.loading(chatbox, icon, className, loadingSec);
       // ローディング非表示
       this.noLoading(chatbox, className, num, msgSec);
-      // 解答表示
+      // ユーザーメッセージの場合に既読をつける
+      if (className === 'user') {
+        console.log(msgSec + 1000)
+        this.alreadyRead(num, (msgSec + 1000))
+      };
+      // メッセージ表示
       this.msgHTML(chatbox, icon, className, msg, msgSec);
     }
   }

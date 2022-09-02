@@ -128,6 +128,14 @@ ul, ol {
   margin: 5px 0 0 0;
 }
 
+.read {
+  position: absolute;
+  left: -33px;
+  bottom: 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
 .quiestion {
   width: 50%;
   margin: 0 auto 20px;
