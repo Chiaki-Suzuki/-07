@@ -112,16 +112,9 @@ let app = new Vue({
       // メッセージ３
       this.msg(chatbox, this.noDOM, 'noicon_guide', 5000, 1, 6500, 'マンション・アパートのお風呂リフォーム相場は');
       // メッセージ４
-      setTimeout(() => {
-        chatbox.insertAdjacentHTML('beforeend', `
-        <div class="souba">
-          <div class="soubabox"><img class="img1" src="../実務課題07/images/max.png"><img class="img3" src="../実務課題07/images/300.png"></div>
-          <div class="soubabox"><img class="img2" src="../実務課題07/images/min.png"><img class="img4" src="../実務課題07/images/10.png"></div>
-        </div>
-        `)
-      }, 7500);
+      this.souba(chatbox, 7500);
       // メッセージ５
-      this.msg(chatbox, this.noDOM, 'noicon_guide', 12500, 2, 14000, 'あなたの費用を、データをもとにしっかり計算します。');
+      this.msg(chatbox, this.noDOM, 'noicon_guide', 13500, 2, 15000, 'あなたの費用を、データをもとにしっかり計算します。');
     },
     // メッセージ内容
     msgHTML: function (chatbox, icon, className, msg, sec) {
@@ -152,6 +145,8 @@ let app = new Vue({
             ${this.loadingAnimation}
         </div>
         `)
+        // 自動スクロール
+        chatbox.scrollTop = chatbox.scrollHeight;
       }, sec)
     },
     // ローディングアニメーション削除
@@ -168,6 +163,21 @@ let app = new Vue({
         // parent[num].style.display = 'none';
       }, sec)
     },
+    // 相場表示
+    souba: function (chatbox, sec) {
+      setTimeout(() => {
+        chatbox.insertAdjacentHTML('beforeend', `
+        <div class="souba">
+        <div class="soubabox"><img class="img1" src="../実務課題07/images/max.png"><img class="img3" src="../実務課題07/images/300.png"></div>
+        <div class="soubabox"><img class="img2" src="../実務課題07/images/min.png"><img class="img4" src="../実務課題07/images/10.png"></div>
+        </div>
+        `)
+      }, sec);
+      setTimeout(() => {
+        // 自動スクロール
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }, 7600);
+    },
     // メッセージ入力～表示
     msg: function (chatbox, icon, className, loadingSec, num, msgSec, msg) {
       // ローディング表示
@@ -180,13 +190,6 @@ let app = new Vue({
       };
       // メッセージ表示
       this.msgHTML(chatbox, icon, className, msg, msgSec);
-    },
-    // 自動スクロール
-    scrollToEnd: function () {
-      let chatbox = document.querySelector('.chatbox');
-      console.log('aaa')
-      console.log(chatbox.clientHeight)
-      chatbox.scrollTop = chatbox.scrollHeight;
     }
   }
 })
