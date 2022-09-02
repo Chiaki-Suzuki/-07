@@ -12,10 +12,12 @@
     <body>
         <div id="app">
             <div class="container">
-                <div class="chatbox">
-                    <div class="quiestion" v-if="isShow">
-                        <button v-on:click="roughCalc">ざっくり計算</button>
-                        <button v-on:click="tightCalc">しっかり計算</button>
+                <div class="chat">
+                    <div class="chatbox" v-on:resize="scrollToEnd">
+                        <div class="quiestion" v-if="isShow">
+                            <button v-on:click="roughCalc">ざっくり計算</button>
+                            <button v-on:click="tightCalc">しっかり計算</button>
+                        </div>
                     </div>
                 </div>
             </div>

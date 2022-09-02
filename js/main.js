@@ -35,7 +35,6 @@ let app = new Vue({
     </div>
     `)
 
-
     // デフォルトメッセージ２ローディングを表示
     setTimeout(this.q1Loading, 1000);
 
@@ -46,7 +45,7 @@ let app = new Vue({
     setTimeout(this.q1Disp, 2000);
 
     // ボタン表示
-    setTimeout(this.btnsDisp, 3500);
+    setTimeout(this.btnsDisp, 3000);
   },
   methods: {
     // デフォルトメッセージ２ローディング
@@ -116,13 +115,13 @@ let app = new Vue({
       setTimeout(() => {
         chatbox.insertAdjacentHTML('beforeend', `
         <div class="souba">
-          <div class="soubabox"><img src="../実務課題07/images/max.png"><img src="../実務課題07/images/300.png"></div>
-          <div class="soubabox"><img src="../実務課題07/images/min.png"><img src="../実務課題07/images/10.png"></div>
+          <div class="soubabox"><img class="img1" src="../実務課題07/images/max.png"><img class="img3" src="../実務課題07/images/300.png"></div>
+          <div class="soubabox"><img class="img2" src="../実務課題07/images/min.png"><img class="img4" src="../実務課題07/images/10.png"></div>
         </div>
         `)
       }, 7500);
       // メッセージ５
-      this.msg(chatbox, this.noDOM, 'noicon_guide', 8500, 2, 10000, 'あなたの費用を、データをもとにしっかり計算します。');
+      this.msg(chatbox, this.noDOM, 'noicon_guide', 12500, 2, 14000, 'あなたの費用を、データをもとにしっかり計算します。');
     },
     // メッセージ内容
     msgHTML: function (chatbox, icon, className, msg, sec) {
@@ -141,7 +140,6 @@ let app = new Vue({
     alreadyRead: function (num, sec) {
       setTimeout(() => {
         let user = document.querySelectorAll('.user .comment p');
-        console.log(user[num])
         user[num].insertAdjacentHTML('afterbegin', `<span class="read">既読</span>`)
       }, sec)
     },
@@ -178,11 +176,17 @@ let app = new Vue({
       this.noLoading(chatbox, className, num, msgSec);
       // ユーザーメッセージの場合に既読をつける
       if (className === 'user') {
-        console.log(msgSec + 1000)
         this.alreadyRead(num, (msgSec + 1000))
       };
       // メッセージ表示
       this.msgHTML(chatbox, icon, className, msg, msgSec);
+    },
+    // 自動スクロール
+    scrollToEnd: function () {
+      let chatbox = document.querySelector('.chatbox');
+      console.log('aaa')
+      console.log(chatbox.clientHeight)
+      chatbox.scrollTop = chatbox.scrollHeight;
     }
   }
 })

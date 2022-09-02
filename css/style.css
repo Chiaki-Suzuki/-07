@@ -31,7 +31,7 @@ ul, ol {
 /*-------------------------
   チャット
 -------------------------*/
-.chatbox {
+.chat {
   width: 100%;
   height: 80vh;
   overflow-y: scroll;
@@ -41,15 +41,15 @@ ul, ol {
   border-radius: 10px;
 }
 
-.chatbox::-webkit-scrollbar {
+.chat::-webkit-scrollbar {
   width: 15px;
 }
 
-.chatbox::-webkit-scrollbar-track {
+.chat::-webkit-scrollbar-track {
   display: none;
 }
 
-.chatbox::-webkit-scrollbar-thumb {
+.chat::-webkit-scrollbar-thumb {
   background-color: #aaa;
   border: 3px solid #fff;
   border-radius: 50em;
@@ -188,6 +188,40 @@ ul, ol {
   width: 80px;
 }
 
+/*-------------------------
+  画像描画アニメーション
+-------------------------*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.img1 {
+  animation: fadeIn 1s ease 0s 1 normal backwards;
+}
+.img2 {
+  animation: fadeIn 1s ease 2s 1 normal backwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.img3 {
+  animation: fadeSlideIn 1s ease 1s 1 normal backwards;
+}
+.img4 {
+  animation: fadeSlideIn 1s ease 3s 1 normal backwards;
+}
 
 /*-------------------------
   チャット入力中
