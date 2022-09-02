@@ -230,11 +230,11 @@ ul, ol {
 @keyframes pulse {
   from {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(3px);
   }
   to {
-    opacity: .25;
-    transform: scale(.75);
+    opacity: .35;
+    transform: translateY(-3px);
   }
 }
 
