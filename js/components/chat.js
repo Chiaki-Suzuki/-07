@@ -2,7 +2,11 @@ Vue.component('chat', {
   template: `
   <div>
     <q2 v-if="q2box"
-        v-on:simpleQue="simpleQue">
+        v-bind:question="questions"
+        v-bind:num="0"
+        v-on:simpleQue="simpleQue"
+        v-on:doubleQue="doubleQue"
+        v-on:multiQue="multiQue">
     </q2>
     <q3 v-if="q3box"
         v-on:doubleQue="doubleQue">
@@ -44,6 +48,8 @@ Vue.component('chat', {
   props: ['q2box', 'noDom', 'icon', 'loadingAnimation'],
   data: function () {
     return {
+      questions: [],
+      num: '',
       q3box: false,
       q4box: false,
       q5box: false,
@@ -52,6 +58,21 @@ Vue.component('chat', {
       q8box: false,
       q9box: false,
       q10box: false,
+    }
+  },
+  /*-------------------------
+    質問を読み込む
+  -------------------------*/
+  created: async function () {
+    const res = await fetch('../実務課題07/js/questions.json');
+    const items = await res.json();
+    this.questions = items;
+
+    // 質問の表示を繰り返したい
+    for (i = 0; i < this.questions.length; i++) {
+      // TODO: ここは「simpleQue」とかが終わってからiを代入するようにしたい
+      this.num = await i;
+      console.log(this.num)
     }
   },
   methods: {
@@ -70,6 +91,7 @@ Vue.component('chat', {
       this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 2500, 0, 4000, question)
 
       // 次の質問を表示
+      console.log(queNum)
       this.nextQue(queNum, 5000)
       // 自動スクロール
       this.$emit('auto-scroll', 5000)
@@ -133,21 +155,21 @@ Vue.component('chat', {
     -------------------------*/
     nextQue: function (num, sec) {
       setTimeout(() => {
-        if (num === 1) {
+        if (num === '1') {
           this.q3box = true;
-        } else if (num === 2) {
+        } else if (num === '2') {
           this.q4box = true;
-        } else if (num === 3) {
+        } else if (num === '3') {
           this.q5box = true;
-        } else if (num === 4) {
+        } else if (num === '4') {
           this.q6box = true;
-        } else if (num === 5) {
+        } else if (num === '5') {
           this.q7box = true;
-        } else if (num === 6) {
+        } else if (num === '6') {
           this.q8box = true;
-        } else if (num === 7) {
+        } else if (num === '7') {
           this.q9box = true;
-        } else if (num === 8) {
+        } else if (num === '8') {
           this.q10box = true;
         }
       }, sec)
