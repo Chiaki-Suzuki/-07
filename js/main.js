@@ -18,9 +18,6 @@ let app = new Vue({
     </div>
     `,
     isQ2Show: false,
-    isQ3Show: false,
-    isQ4Show: false,
-    isQ5Show: false,
   },
   created: function () {
     // 最初のチャット内容を表示
@@ -217,24 +214,6 @@ let app = new Vue({
       setTimeout(() => {
         this.isQ2Show = true;
       }, sec)
-    },
-    // 質問３を表示
-    q3Disp: function (sec) {
-      setTimeout(() => {
-        this.isQ3Show = true;
-      }, sec)
-    },
-    // 質問４を表示
-    q4Disp: function (sec) {
-      setTimeout(() => {
-        this.isQ4Show = true;
-      }, sec)
-    },
-    // 質問５を表示
-    q5Disp: function (sec) {
-      setTimeout(() => {
-        this.isQ5Show = true;
-      }, sec)
-    },
+    }
   }
 })

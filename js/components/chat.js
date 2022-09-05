@@ -17,13 +17,13 @@ Vue.component('chat', {
         v-on:multiQue="multiQue">
     </q6>
     <q7 v-if="q7box"
-        v-on:simpleQue="multiQue">
+        v-on:multiQue="multiQue">
     </q7>
     <q8 v-if="q8box"
-        v-on:simpleQue="multiQue">
+        v-on:multiQue="multiQue">
     </q8>
     <q9 v-if="q9box"
-        v-on:simpleQue="multiQue">
+        v-on:multiQue="multiQue">
     </q9>
     <q10 v-if="q10box"
         v-on:simpleQue="simpleQue">
