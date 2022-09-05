@@ -2,8 +2,6 @@ let app = new Vue({
   el: '#app',
   data: {
     isShow: false,
-    chatbox: '',
-    comment: '',
     noDOM: '',
     icon: `
     <div class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
@@ -18,12 +16,12 @@ let app = new Vue({
         </div>
       </div>
     </div>
-    `
+    `,
+    isQ2Show: false
   },
   created: function () {
     // 最初のチャット内容を表示
     let chatbox = document.querySelector('.chatbox');
-    this.chatbox = chatbox;
 
     // デフォルトメッセージ１
     chatbox.insertAdjacentHTML('afterbegin', `
@@ -96,6 +94,14 @@ let app = new Vue({
       this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。')
       // メッセージ３
       this.msg(chatbox, this.noDOM, 'noicon_guide', 5000, 1, 6500, 'データをもとに、あなたの相場をざっくり計算します。')
+      // メッセージ４
+      this.msg(chatbox, this.icon, 'guide', 7500, 2, 9000, '希望されるお風呂は、どのような形式ですか？')
+
+      setTimeout(() => {
+        this.isQ2Show = true;
+        console.log(this.isQ2Show)
+      }, 10000)
+
     },
     /*-------------------------
       しっかり計算
@@ -115,6 +121,14 @@ let app = new Vue({
       this.souba(chatbox, 7500);
       // メッセージ５
       this.msg(chatbox, this.noDOM, 'noicon_guide', 13500, 2, 15000, 'あなたの費用を、データをもとにしっかり計算します。');
+      // メッセージ６
+      this.msg(chatbox, this.icon, 'guide', 16000, 2, 17500, '希望されるお風呂は、どのような形式ですか？')
+
+      setTimeout(() => {
+        this.isQ2Show = true;
+        console.log(this.isQ2Show)
+      }, 18500)
+
     },
     // メッセージ内容
     msgHTML: function (chatbox, icon, className, msg, sec) {
@@ -146,7 +160,8 @@ let app = new Vue({
         </div>
         `)
         // 自動スクロール
-        chatbox.scrollTop = chatbox.scrollHeight;
+        let chat = document.querySelector('.chat');
+        chat.scrollTop = chat.scrollHeight;
       }, sec)
     },
     // ローディングアニメーション削除
@@ -175,7 +190,8 @@ let app = new Vue({
       }, sec);
       setTimeout(() => {
         // 自動スクロール
-        chatbox.scrollTop = chatbox.scrollHeight;
+        let chat = document.querySelector('.chat');
+        chat.scrollTop = chat.scrollHeight;
       }, 7600);
     },
     // メッセージ入力～表示
