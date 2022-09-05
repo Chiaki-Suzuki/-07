@@ -19,7 +19,7 @@
                             <button v-on:click="tightCalc">しっかり計算</button>
                         </div>
                     </div>
-                    <chat v-bind:q2="isQ2Show"></chat>
+                    <chat v-on:child-msg="msg" v-bind:q2="isQ2Show" v-bind:no-dom="noDom" v-bind:icon="icon" v-bind:loading-animation="loadingAnimation"></chat>
                     <!-- <chat v-bind:q3="isQ3Show"></chat> -->
                 </div>
             </div>

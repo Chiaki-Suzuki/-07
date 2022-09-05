@@ -2,7 +2,7 @@ let app = new Vue({
   el: '#app',
   data: {
     isShow: false,
-    noDOM: '',
+    noDom: '',
     icon: `
     <div class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
     `,
@@ -89,19 +89,18 @@ let app = new Vue({
       setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.msg(chatbox, this.noDOM, 'user', 500, 0, 1500, 'ざっくり計算です。')
+      this.msg(chatbox, this.noDom, 'user', 500, 0, 1500, 'ざっくり計算です。')
       // メッセージ２
       this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。')
       // メッセージ３
-      this.msg(chatbox, this.noDOM, 'noicon_guide', 5000, 1, 6500, 'データをもとに、あなたの相場をざっくり計算します。')
+      this.msg(chatbox, this.noDom, 'noicon_guide', 5000, 1, 6500, 'データをもとに、あなたの相場をざっくり計算します。')
       // メッセージ４
       this.msg(chatbox, this.icon, 'guide', 7500, 2, 9000, '希望されるお風呂は、どのような形式ですか？')
 
-      setTimeout(() => {
-        this.isQ2Show = true;
-        console.log(this.isQ2Show)
-      }, 10000)
-
+      // 質問２表示
+      this.nextQuestion(10000);
+      // 自動スクロール
+      this.autoScroll(10000);
     },
     /*-------------------------
       しっかり計算
@@ -112,22 +111,22 @@ let app = new Vue({
       setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.msg(chatbox, this.noDOM, 'user', 500, 0, 1500, 'しっかり計算です。');
+      this.msg(chatbox, this.noDom, 'user', 500, 0, 1500, 'しっかり計算です。');
       // メッセージ２
       this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。');
       // メッセージ３
-      this.msg(chatbox, this.noDOM, 'noicon_guide', 5000, 1, 6500, 'マンション・アパートのお風呂リフォーム相場は');
+      this.msg(chatbox, this.noDom, 'noicon_guide', 5000, 1, 6500, 'マンション・アパートのお風呂リフォーム相場は');
       // メッセージ４
       this.souba(chatbox, 7500);
       // メッセージ５
-      this.msg(chatbox, this.noDOM, 'noicon_guide', 13500, 2, 15000, 'あなたの費用を、データをもとにしっかり計算します。');
+      this.msg(chatbox, this.noDom, 'noicon_guide', 13500, 2, 15000, 'あなたの費用を、データをもとにしっかり計算します。');
       // メッセージ６
       this.msg(chatbox, this.icon, 'guide', 16000, 2, 17500, '希望されるお風呂は、どのような形式ですか？')
 
-      setTimeout(() => {
-        this.isQ2Show = true;
-        console.log(this.isQ2Show)
-      }, 18500)
+      // 質問２表示
+      this.nextQuestion(18500);
+      // 自動スクロール
+      this.autoScroll(18500);
 
     },
     // メッセージ内容
@@ -175,7 +174,6 @@ let app = new Vue({
           parent = document.querySelectorAll('.noicon_guide');
         }
         chatbox.removeChild(parent[num])
-        // parent[num].style.display = 'none';
       }, sec)
     },
     // 相場表示
@@ -188,11 +186,8 @@ let app = new Vue({
         </div>
         `)
       }, sec);
-      setTimeout(() => {
-        // 自動スクロール
-        let chat = document.querySelector('.chat');
-        chat.scrollTop = chat.scrollHeight;
-      }, 7600);
+      // 自動スクロール
+      this.autoScroll(7600);
     },
     // メッセージ入力～表示
     msg: function (chatbox, icon, className, loadingSec, num, msgSec, msg) {
@@ -206,6 +201,19 @@ let app = new Vue({
       };
       // メッセージ表示
       this.msgHTML(chatbox, icon, className, msg, msgSec);
+    },
+    // 次の質問を表示
+    nextQuestion: function (sec) {
+      setTimeout(() => {
+        this.isQ2Show = true;
+      }, sec)
+    },
+    // 自動スクロール
+    autoScroll: function (sec) {
+      setTimeout(() => {
+        let chat = document.querySelector('.chat');
+        chat.scrollTop = chat.scrollHeight;
+      }, sec);
     }
   }
 })
