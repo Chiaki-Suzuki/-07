@@ -17,18 +17,14 @@ Vue.component('q4', {
       setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.$emit('child-msg', chatbox, this.noDom, 'user', 500, 2, 1500, `${ans[num].innerHTML}です。`)
+      this.$emit('child-msg', chatbox, this.noDom, 'user', 500, 0, 1500, `${ans[num].innerHTML}です。`)
       // メッセージ２
-      this.$emit('child-msg', chatbox, this.icon, 'guide', 2500, 4, 4000, '浴槽まわりの希望をお伺いします。')
-      // メッセージ２
-      this.$emit('child-msg', chatbox, this.icon, 'guide', 5000, 5, 6500, '湯船につかる頻度が多い場合は、浴槽の形が重要です。')
-      // メッセージ２
-      this.$emit('child-msg', chatbox, this.noDom, 'noicon_guide', 7500, 2, 9000, '浴槽の形にこだわりはありますか？')
+      this.$emit('child-msg', chatbox, this.icon, 'guide', 2500, 0, 4000, 'お湯の冷めにくい、保温効果のある浴槽をご希望されますか？')
 
       // 次の質問を表示
-      this.$emit('next-question', 10000)
+      this.$emit('next-question', 5000)
       // 自動スクロール
-      this.$emit('auto-scroll', 10000)
+      this.$emit('auto-scroll', 5000)
     },
     // ボタン非表示
     btnsNoDisp: function () {

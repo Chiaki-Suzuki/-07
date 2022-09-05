@@ -20,9 +20,9 @@ Vue.component('q3', {
       this.$emit('child-msg', chatbox, this.noDom, 'user', 500, 0, 1500, `${ans[num].innerHTML}です。`)
       // メッセージ２
       this.$emit('child-msg', chatbox, this.icon, 'guide', 2500, 0, 4000, '浴槽まわりの希望をお伺いします。')
-      // メッセージ２
+      // メッセージ３
       this.$emit('child-msg', chatbox, this.icon, 'guide', 5000, 1, 6500, '湯船につかる頻度が多い場合は、浴槽の形が重要です。')
-      // メッセージ２
+      // メッセージ４
       this.$emit('child-msg', chatbox, this.noDom, 'noicon_guide', 7500, 0, 9000, '浴槽の形にこだわりはありますか？')
 
       // 次の質問を表示
