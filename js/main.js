@@ -17,7 +17,9 @@ let app = new Vue({
       </div>
     </div>
     `,
-    isQ2Show: false
+    isQ2Show: false,
+    isQ3Show: false,
+    isQ4Show: false,
   },
   created: function () {
     // 最初のチャット内容を表示
@@ -98,7 +100,7 @@ let app = new Vue({
       this.msg(chatbox, this.icon, 'guide', 7500, 2, 9000, '希望されるお風呂は、どのような形式ですか？')
 
       // 質問２表示
-      this.nextQuestion(10000);
+      this.q2Disp(10000);
       // 自動スクロール
       this.autoScroll(10000);
     },
@@ -124,7 +126,7 @@ let app = new Vue({
       this.msg(chatbox, this.icon, 'guide', 16000, 2, 17500, '希望されるお風呂は、どのような形式ですか？')
 
       // 質問２表示
-      this.nextQuestion(18500);
+      this.q2Disp(18500);
       // 自動スクロール
       this.autoScroll(18500);
 
@@ -143,9 +145,9 @@ let app = new Vue({
       }, sec)
     },
     // 既読をつける
-    alreadyRead: function (num, sec) {
+    alreadyRead: function (chatbox, num, sec) {
       setTimeout(() => {
-        let user = document.querySelectorAll('.user .comment p');
+        let user = chatbox.querySelectorAll('.user .comment p');
         user[num].insertAdjacentHTML('afterbegin', `<span class="read">既読</span>`)
       }, sec)
     },
@@ -167,11 +169,11 @@ let app = new Vue({
     noLoading: function (chatbox, parent, num, sec) {
       setTimeout(() => {
         if (parent === 'user') {
-          parent = document.querySelectorAll('.user');
+          parent = chatbox.querySelectorAll('.user');
         } else if (parent === 'guide') {
-          parent = document.querySelectorAll('.guide');
+          parent = chatbox.querySelectorAll('.guide');
         } else if (parent == 'noicon_guide') {
-          parent = document.querySelectorAll('.noicon_guide');
+          parent = chatbox.querySelectorAll('.noicon_guide');
         }
         chatbox.removeChild(parent[num])
       }, sec)
@@ -197,16 +199,10 @@ let app = new Vue({
       this.noLoading(chatbox, className, num, msgSec);
       // ユーザーメッセージの場合に既読をつける
       if (className === 'user') {
-        this.alreadyRead(num, (msgSec + 1000))
+        this.alreadyRead(chatbox, num, (msgSec + 1000))
       };
       // メッセージ表示
       this.msgHTML(chatbox, icon, className, msg, msgSec);
-    },
-    // 次の質問を表示
-    nextQuestion: function (sec) {
-      setTimeout(() => {
-        this.isQ2Show = true;
-      }, sec)
     },
     // 自動スクロール
     autoScroll: function (sec) {
@@ -214,6 +210,24 @@ let app = new Vue({
         let chat = document.querySelector('.chat');
         chat.scrollTop = chat.scrollHeight;
       }, sec);
-    }
+    },
+    // 質問２を表示
+    q2Disp: function (sec) {
+      setTimeout(() => {
+        this.isQ2Show = true;
+      }, sec)
+    },
+    // 質問３を表示
+    q3Disp: function (sec) {
+      setTimeout(() => {
+        this.isQ3Show = true;
+      }, sec)
+    },
+    // 質問４を表示
+    q4Disp: function (sec) {
+      setTimeout(() => {
+        this.isQ4Show = true;
+      }, sec)
+    },
   }
 })
