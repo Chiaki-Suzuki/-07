@@ -19,9 +19,7 @@
                             <button v-on:click="tightCalc">しっかり計算</button>
                         </div>
                     </div>
-                    <q2 v-on:child-msg="msg" v-on:next-question="q3Disp" v-on:auto-scroll="autoScroll" v-bind:q2="isQ2Show" v-bind:no-dom="noDom" v-bind:icon="icon" v-bind:loading-animation="loadingAnimation"></q2>
-                    <q3 v-on:child-msg="msg" v-on:next-question="q4Disp" v-on:auto-scroll="autoScroll" v-bind:q3="isQ3Show" v-bind:no-dom="noDom" v-bind:icon="icon" v-bind:loading-animation="loadingAnimation"></q3>
-                    <q4 v-on:child-msg="msg" v-on:next-question="q5Disp" v-on:auto-scroll="autoScroll" v-bind:q4="isQ4Show" v-bind:no-dom="noDom" v-bind:icon="icon" v-bind:loading-animation="loadingAnimation"></q4>
+                    <chat v-on:child-msg="msg" v-on:auto-scroll="autoScroll" v-bind:q2box="isQ2Show" v-bind:no-dom="noDom" v-bind:icon="icon" v-bind:loading-animation="loadingAnimation"></chat>
                 </div>
             </div>
         </div>
@@ -30,5 +28,6 @@
     <script src="js/components/q2.js"></script>
     <script src="js/components/q3.js"></script>
     <script src="js/components/q4.js"></script>
+    <script src="js/components/chat.js"></script>
     <script src="js/main.js"></script>
 </html>
