@@ -162,6 +162,19 @@ ul, ol {
   width: 30%;
 }
 
+.quiestion.col4 {
+  width: 70%;
+  justify-content: normal;
+}
+.quiestion.col4 button{
+  width: calc((100% - 45px) / 4);
+  margin: 0 0 15px 15px;
+}
+
+.quiestion.col4 button:nth-of-type(4n+1) {
+  margin-left: 0;
+}
+
 .quiestion button:hover {
   background-color: #ffc107;
   border: 1px solid #ffc107;

@@ -3,53 +3,72 @@ Vue.component('chat', {
   <div>
     <q2 v-if="q2box"
         v-bind:question="questions"
-        v-bind:num="0"
-        v-on:simpleQue="simpleQue"
-        v-on:doubleQue="doubleQue"
+        v-bind:num="num"
+        v-on:simpleQue="simpleQue">
+    </q2>
+    <q2 v-if="q3box"
+        v-bind:question="questions"
+        v-bind:num="num"
+        v-on:doubleQue="doubleQue">
+    </q2>
+    <q2 v-if="q4box"
+        v-bind:question="questions"
+        v-bind:num="num"
+        v-on:simpleQue="simpleQue">
+    </q2>
+    <q2 v-if="q5box"
+        v-bind:question="questions"
+        v-bind:num="num"
+        v-on:simpleQue="simpleQue">
+    </q2>
+    <q2 v-if="q6box"
+        v-bind:question="questions"
+        v-bind:num="num"
         v-on:multiQue="multiQue">
     </q2>
-    <q3 v-if="q3box"
-        v-on:doubleQue="doubleQue">
-    </q3>
-    <q4 v-if="q4box"
+    <q2 v-if="q7box"
+        v-bind:question="questions"
+        v-bind:num="num"
+        v-on:multiQue="multiQue">
+    </q2>
+    <q2 v-if="q8box"
+        v-bind:question="questions"
+        v-bind:num="num"
+        v-on:multiQue="multiQue">
+    </q2>
+    <q2 v-if="q9box"
+        v-bind:question="questions"
+        v-bind:num="num"
+        v-on:multiQue="multiQue">
+    </q2>
+    <q2 v-if="q10box"
+        v-bind:question="questions"
+        v-bind:num="num"
         v-on:simpleQue="simpleQue">
-    </q4>
-    <q5 v-if="q5box"
+    </q2>
+    <q2 v-if="q11box"
+        v-bind:question="questions"
+        v-bind:num="num"
         v-on:simpleQue="simpleQue">
-    </q5>
-    <q6 v-if="q6box"
+    </q2>
+    <pref v-if="prefShow"
+        v-bind:question="questions"
+        v-bind:region="region"
+        v-bind:prefId="prefId"
+        v-on:prefSelect="prefSelect"
         v-on:multiQue="multiQue">
-    </q6>
-    <q7 v-if="q7box"
-        v-on:multiQue="multiQue">
-    </q7>
-    <q8 v-if="q8box"
-        v-on:multiQue="multiQue">
-    </q8>
-    <q9 v-if="q9box"
-        v-on:multiQue="multiQue">
-    </q9>
-    <q10 v-if="q10box"
-        v-on:simpleQue="simpleQue">
-    </q10>
+    </pref>
   </div>
   `,
   components: {
     'q2': q2,
-    'q3': q3,
-    'q4': q4,
-    'q5': q5,
-    'q6': q6,
-    'q7': q7,
-    'q8': q8,
-    'q9': q9,
-    'q10': q10,
+    'pref': pref
   },
   props: ['q2box', 'noDom', 'icon', 'loadingAnimation'],
   data: function () {
     return {
       questions: [],
-      num: '',
+      num: 0,
       q3box: false,
       q4box: false,
       q5box: false,
@@ -58,6 +77,10 @@ Vue.component('chat', {
       q8box: false,
       q9box: false,
       q10box: false,
+      q11box: false,
+      prefShow: false,
+      region: true,
+      prefId: ''
     }
   },
   /*-------------------------
@@ -67,13 +90,6 @@ Vue.component('chat', {
     const res = await fetch('../実務課題07/js/questions.json');
     const items = await res.json();
     this.questions = items;
-
-    // 質問の表示を繰り返したい
-    for (i = 0; i < this.questions.length; i++) {
-      // TODO: ここは「simpleQue」とかが終わってからiを代入するようにしたい
-      this.num = await i;
-      console.log(this.num)
-    }
   },
   methods: {
     /*-------------------------
@@ -91,7 +107,6 @@ Vue.component('chat', {
       this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 2500, 0, 4000, question)
 
       // 次の質問を表示
-      console.log(queNum)
       this.nextQue(queNum, 5000)
       // 自動スクロール
       this.$emit('auto-scroll', 5000)
@@ -104,7 +119,6 @@ Vue.component('chat', {
       let ans = document.querySelectorAll('.chatbox .quiestion button');
       // ボタンを消す
       this.btnsNoDisp(chatbox[queNum]);
-      console.log(ans[ansNum].innerHTML)
 
       // メッセージ１
       this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 500, 0, 1500, `${ans[ansNum].innerHTML}${gobi}`)
@@ -113,10 +127,15 @@ Vue.component('chat', {
       // メッセージ３
       this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 5000, 0, 6500, question)
 
-      // 次の質問を表示
-      this.nextQue(queNum, 7500)
-      // 自動スクロール
-      this.$emit('auto-scroll', 7500)
+      // 最後の場合は実行しない
+      if (queNum === 11) {
+        return;
+      } else {
+        // 次の質問を表示
+        this.nextQue(queNum, 7500)
+        // 自動スクロール
+        this.$emit('auto-scroll', 7500)
+      }
     },
     /*-------------------------
       質問＋メッセージ＋質問
@@ -171,8 +190,21 @@ Vue.component('chat', {
           this.q9box = true;
         } else if (num === '8') {
           this.q10box = true;
+        } else if (num === '9') {
+          this.q11box = true;
+        } else if (num === '10') {
+          this.prefShow = true;
         }
+        // 質問の表示を繰り返したい
+        this.num = num;
       }, sec)
+    },
+    /*-------------------------
+      都道府県
+    -------------------------*/
+    prefSelect: function (num) {
+      this.region = false;
+      this.prefId = num;
     }
   }
   })
