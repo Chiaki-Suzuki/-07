@@ -51,8 +51,7 @@ Vue.component('chat', {
         v-bind:num="num"
         v-on:simpleQue="simpleQue">
     </q2>
-    <pref v-if="prefShow"
-        v-bind:question="questions"
+    <pref v-if="prefShow && typeof questions !== 'undefined'"
         v-bind:region="region"
         v-bind:prefId="prefId"
         v-on:prefSelect="prefSelect"
@@ -120,7 +119,7 @@ Vue.component('chat', {
       // メッセージ２
       this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 0, msg, 2500)
       // メッセージ３＋次の質問を表示＋自動スクロール
-      // 最後の場合は実行しない
+      // 最後の場合は次の質問は実行しない
       if (queNum === 11) {
         this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 0, question, 5000)
       } else {
@@ -184,6 +183,7 @@ Vue.component('chat', {
             self.q11box = true;
           } else if (num === '10') {
             self.prefShow = true;
+            return;
           }
           // 質問の表示を繰り返したい
           self.num = num;
