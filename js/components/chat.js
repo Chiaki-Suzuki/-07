@@ -102,14 +102,9 @@ Vue.component('chat', {
       this.btnsNoDisp(chatbox[queNum]);
 
       // メッセージ１
-      this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 500, 0, 1500, `${ans[ansNum].innerHTML}${gobi}`)
-      // メッセージ２
-      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 2500, 0, 4000, question)
-
-      // 次の質問を表示
-      this.nextQue(queNum, 5000)
-      // 自動スクロール
-      this.$emit('auto-scroll', 5000)
+      this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 0, `${ans[ansNum].innerHTML}${gobi}`, 500)
+      // メッセージ２＋次の質問を表示＋自動スクロール
+      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 0, question, 2500, () => this.nextQue(queNum), queNum)
     },
     /*-------------------------
       メッセージ＋質問
@@ -121,20 +116,15 @@ Vue.component('chat', {
       this.btnsNoDisp(chatbox[queNum]);
 
       // メッセージ１
-      this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 500, 0, 1500, `${ans[ansNum].innerHTML}${gobi}`)
+      this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 0, `${ans[ansNum].innerHTML}${gobi}`, 500)
       // メッセージ２
-      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 2500, 0, 4000, msg)
-      // メッセージ３
-      this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 5000, 0, 6500, question)
-
+      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 0, msg, 2500)
+      // メッセージ３＋次の質問を表示＋自動スクロール
       // 最後の場合は実行しない
       if (queNum === 11) {
-        return;
+        this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 0, question, 5000)
       } else {
-        // 次の質問を表示
-        this.nextQue(queNum, 7500)
-        // 自動スクロール
-        this.$emit('auto-scroll', 7500)
+        this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 0, question, 5000, () => this.nextQue(queNum), queNum)
       }
     },
     /*-------------------------
@@ -147,57 +137,59 @@ Vue.component('chat', {
       this.btnsNoDisp(chatbox[queNum]);
 
       // メッセージ１
-      this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 500, 0, 1500, `${ans[ansNum].innerHTML}${gobi}`)
+      this.$emit('child-msg', chatbox[queNum], this.noDom, 'user', 0, `${ans[ansNum].innerHTML}${gobi}`, 500)
       // メッセージ２
-      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 2500, 0, 4000, question1)
+      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 0, question1, 2500)
       // メッセージ３
-      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 5000, 1, 6500, msg1)
-      // メッセージ４
-      this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 7500, 0, 9000, question2)
-
-      // 次の質問を表示
-      this.nextQue(queNum, 10000)
-      // 自動スクロール
-      this.$emit('auto-scroll', 10000)
+      this.$emit('child-msg', chatbox[queNum], this.icon, 'guide', 1, msg1, 5000)
+      // メッセージ４＋次の質問を表示＋自動スクロール
+      this.$emit('child-msg', chatbox[queNum], this.noDom, 'noicon_guide', 0, question2, 7500, () => this.nextQue(queNum), queNum)
     },
     /*-------------------------
       ボタン非表示
     -------------------------*/
     btnsNoDisp: function (parent) {
-      setTimeout(() => {
-        let btns = document.querySelector('.chatbox .quiestion')
-        parent.removeChild(btns)
-      }, 500)
+      return new Promise(resolve => {
+        setTimeout(() => {
+          let btns = document.querySelector('.chatbox .quiestion')
+          parent.removeChild(btns)
+          resolve();
+        }, 500)
+      })
     },
     /*-------------------------
       次の質問を表示
     -------------------------*/
     nextQue: function (num, sec) {
-      setTimeout(() => {
-        if (num === '1') {
-          this.q3box = true;
-        } else if (num === '2') {
-          this.q4box = true;
-        } else if (num === '3') {
-          this.q5box = true;
-        } else if (num === '4') {
-          this.q6box = true;
-        } else if (num === '5') {
-          this.q7box = true;
-        } else if (num === '6') {
-          this.q8box = true;
-        } else if (num === '7') {
-          this.q9box = true;
-        } else if (num === '8') {
-          this.q10box = true;
-        } else if (num === '9') {
-          this.q11box = true;
-        } else if (num === '10') {
-          this.prefShow = true;
-        }
-        // 質問の表示を繰り返したい
-        this.num = num;
-      }, sec)
+      return new Promise(resolve => {
+        let self = this;
+        setTimeout(() => {
+          if (num === '1') {
+            self.q3box = true;
+          } else if (num === '2') {
+            self.q4box = true;
+          } else if (num === '3') {
+            self.q5box = true;
+          } else if (num === '4') {
+            self.q6box = true;
+          } else if (num === '5') {
+            self.q7box = true;
+          } else if (num === '6') {
+            self.q8box = true;
+          } else if (num === '7') {
+            self.q9box = true;
+          } else if (num === '8') {
+            self.q10box = true;
+          } else if (num === '9') {
+            self.q11box = true;
+          } else if (num === '10') {
+            self.prefShow = true;
+          }
+          // 質問の表示を繰り返したい
+          self.num = num;
+        }, 2000)
+        resolve();
+      })
     },
     /*-------------------------
       都道府県

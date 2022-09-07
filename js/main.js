@@ -78,93 +78,74 @@ let app = new Vue({
     },
     // ボタン非表示
     btnsNoDisp: function () {
-      this.isShow = false;
+      return new Promise(resolve => {
+        this.isShow = false;
+        resolve();
+      })
     },
     /*-------------------------
       ざっくり計算
     -------------------------*/
-    roughCalc: function () {
+    roughCalc: async function () {
       let chatbox = document.querySelector('.chatbox');
       // ボタンを消す
-      setTimeout(this.btnsNoDisp, 500);
+      await setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.msg(chatbox, this.noDom, 'user', 500, 0, 1500, 'ざっくり計算です。')
+      await this.msg(chatbox, this.noDom, 'user', 0, 'ざっくり計算です。', 500)
       // メッセージ２
-      this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。')
-      // メッセージ３
-      this.msg(chatbox, this.noDom, 'noicon_guide', 5000, 1, 6500, 'データをもとに、あなたの相場をざっくり計算します。')
-      // メッセージ４
-      this.msg(chatbox, this.icon, 'guide', 7500, 2, 9000, '希望されるお風呂は、どのような形式ですか？')
+      await this.msg(chatbox, this.icon, 'guide', 1, 'かしこまりました。', 2000)
+      // // メッセージ３
+      await this.msg(chatbox, this.noDom, 'noicon_guide', 1, 'データをもとに、あなたの相場をざっくり計算します。', 2000)
+      // // メッセージ４
+      await this.msg(chatbox, this.icon, 'guide', 2, '希望されるお風呂は、どのような形式ですか？', 2000)
 
       // 質問２表示
-      this.q2Disp(10000);
-      // 自動スクロール
-      this.autoScroll(10000);
+      await this.q2Disp();
+      // // 自動スクロール
+      await this.autoScroll(2000);
     },
     /*-------------------------
       しっかり計算
     -------------------------*/
-    tightCalc: function () {
+    tightCalc: async function () {
       let chatbox = document.querySelector('.chatbox');
       // ボタンを消す
       setTimeout(this.btnsNoDisp, 500);
 
       // メッセージ１
-      this.msg(chatbox, this.noDom, 'user', 500, 0, 1500, 'しっかり計算です。');
+      await this.msg(chatbox, this.noDom, 'user', 0, 'しっかり計算です。', 500);
       // メッセージ２
-      this.msg(chatbox, this.icon, 'guide', 2500, 1, 4000, 'かしこまりました。');
+      await this.msg(chatbox, this.icon, 'guide', 1, 'かしこまりました。', 2000);
       // メッセージ３
-      this.msg(chatbox, this.noDom, 'noicon_guide', 5000, 1, 6500, 'マンション・アパートのお風呂リフォーム相場は');
+      await this.msg(chatbox, this.noDom, 'noicon_guide', 1, 'マンション・アパートのお風呂リフォーム相場は', 2000);
       // メッセージ４
-      this.souba(chatbox, 7500);
+      await this.souba(chatbox);
       // メッセージ５
-      this.msg(chatbox, this.noDom, 'noicon_guide', 13500, 2, 15000, 'あなたの費用を、データをもとにしっかり計算します。');
+      await this.msg(chatbox, this.noDom, 'noicon_guide', 2, 'あなたの費用を、データをもとにしっかり計算します。', 5000);
       // メッセージ６
-      this.msg(chatbox, this.icon, 'guide', 16000, 2, 17500, '希望されるお風呂は、どのような形式ですか？')
+      await this.msg(chatbox, this.icon, 'guide', 2, '希望されるお風呂は、どのような形式ですか？', 2000)
 
       // 質問２表示
-      this.q2Disp(18500);
+      await this.q2Disp();
       // 自動スクロール
-      this.autoScroll(18500);
+      await this.autoScroll(2000);
 
     },
-    // メッセージ内容
-    msgHTML: function (chatbox, icon, className, msg, sec) {
-      setTimeout(() => {
-        chatbox.insertAdjacentHTML('beforeend', `
-        <div class="${className}">
-            ${icon}
-            <div class="comment">
-                <p>${msg}</p>
-            </div>
-        </div>
-        `)
-      }, sec)
-    },
-    // 既読をつける
-    alreadyRead: function (chatbox, num, sec) {
-      setTimeout(() => {
-        let user = chatbox.querySelectorAll('.user .comment p');
-        user[num].insertAdjacentHTML('afterbegin', `<span class="read">既読</span>`)
-      }, sec)
-    },
     // ローディングアニメーション
-    loading: function (chatbox, icon, className, sec) {
-      setTimeout(() => {
-        chatbox.insertAdjacentHTML('beforeend', `
-        <div class="${className}">
-            ${icon}
-            ${this.loadingAnimation}
-        </div>
-        `)
-        // 自動スクロール
-        let chat = document.querySelector('.chat');
-        chat.scrollTop = chat.scrollHeight;
-      }, sec)
+    loading: function (chatbox, icon, className) {
+      chatbox.insertAdjacentHTML('beforeend', `
+      <div class="${className}">
+      ${icon}
+      ${this.loadingAnimation}
+      </div>
+      `)
+      // 自動スクロール
+      let chat = document.querySelector('.chat');
+      chat.scrollTop = chat.scrollHeight;
     },
     // ローディングアニメーション削除
-    noLoading: function (chatbox, parent, num, sec) {
+    noLoading: function (chatbox, parent, num) {
       setTimeout(() => {
         if (parent === 'user') {
           parent = chatbox.querySelectorAll('.user');
@@ -174,33 +155,68 @@ let app = new Vue({
           parent = chatbox.querySelectorAll('.noicon_guide');
         }
         chatbox.removeChild(parent[num])
-      }, sec)
+      }, 1000)
     },
-    // 相場表示
-    souba: function (chatbox, sec) {
+    // メッセージ内容
+    msgHTML: function (chatbox, icon, className, msg) {
       setTimeout(() => {
         chatbox.insertAdjacentHTML('beforeend', `
-        <div class="souba">
-        <div class="soubabox"><img class="img1" src="../実務課題07/images/max.png"><img class="img3" src="../実務課題07/images/300.png"></div>
-        <div class="soubabox"><img class="img2" src="../実務課題07/images/min.png"><img class="img4" src="../実務課題07/images/10.png"></div>
+        <div class="${className}">
+          ${icon}
+          <div class="comment">
+            <p>${msg}</p>
+          </div>
         </div>
         `)
-      }, sec);
-      // 自動スクロール
-      this.autoScroll(7600);
+      }, 1000)
+    },
+    // 既読をつける
+    alreadyRead: function (chatbox, num) {
+      setTimeout(() => {
+        let user = chatbox.querySelectorAll('.user .comment p');
+        user[num].insertAdjacentHTML('afterbegin', `<span class="read">既読</span>`)
+      }, 2000)
+    },
+    // 相場表示
+    souba: function (chatbox) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          chatbox.insertAdjacentHTML('beforeend', `
+          <div class="souba">
+            <div class="soubabox"><img class="img1" src="../実務課題07/images/max.png"><img class="img3" src="../実務課題07/images/300.png"></div>
+            <div class="soubabox"><img class="img2" src="../実務課題07/images/min.png"><img class="img4" src="../実務課題07/images/10.png"></div>
+          </div>
+          `)
+          resolve();
+        }, 1000);
+        // 自動スクロール
+        this.autoScroll(2000);
+      })
     },
     // メッセージ入力～表示
-    msg: function (chatbox, icon, className, loadingSec, num, msgSec, msg) {
-      // ローディング表示
-      this.loading(chatbox, icon, className, loadingSec);
-      // ローディング非表示
-      this.noLoading(chatbox, className, num, msgSec);
-      // ユーザーメッセージの場合に既読をつける
-      if (className === 'user') {
-        this.alreadyRead(chatbox, num, (msgSec + 1000))
-      };
-      // メッセージ表示
-      this.msgHTML(chatbox, icon, className, msg, msgSec);
+    msg: function (chatbox, icon, className, num, msg, sec, next, qnum) {
+      return new Promise(resolve => {
+        let self = this;
+        // ボタン押した直後なので早めに表示
+          setTimeout(() => {
+            // ローディング表示
+            self.loading(chatbox, icon, className);
+            // ローディング非表示
+            self.noLoading(chatbox, className, num);
+            // ユーザーメッセージの場合に既読をつける
+            if (className === 'user') {
+              self.alreadyRead(chatbox, num)
+            }
+            // メッセージ表示
+            self.msgHTML(chatbox, icon, className, msg);
+
+            if (typeof next !== 'undefined') {
+              next(qnum);
+              self.autoScroll(2100)
+            }
+            resolve();
+          }, sec)
+      })
     },
     // 自動スクロール
     autoScroll: function (sec) {
@@ -210,10 +226,10 @@ let app = new Vue({
       }, sec);
     },
     // 質問２を表示
-    q2Disp: function (sec) {
+    q2Disp: function () {
       setTimeout(() => {
         this.isQ2Show = true;
-      }, sec)
+      }, 2000)
     }
   }
 })
