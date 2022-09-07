@@ -76,5 +76,5 @@ let pref = {
       </div>
   </div>
   `,
-  props: ['question', 'num', 'region', 'prefId']
+  props: ['region', 'prefId']
 }
