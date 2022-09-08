@@ -210,6 +210,7 @@ let app = new Vue({
             // メッセージ表示
             self.msgHTML(chatbox, icon, className, msg);
 
+            // 質問３以降表示用
             if (typeof next !== 'undefined') {
               next(qnum);
               self.autoScroll(2100)
