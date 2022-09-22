@@ -4,16 +4,11 @@
         v-for="n in newbox"
         v-bind:key="n"
         v-if="q2box"
-        v-bind:question="questions"
         v-bind:num="num"
-        v-bind:newbox="newbox"
         v-on:newMsg="newMsg">
     </Question>
     <Pref
-        v-if="prefShow && typeof questions !== 'undefined'"
-        v-bind:region="region"
-        v-bind:prefId="prefId"
-        v-on:prefSelect="prefSelect"
+        v-if="prefShow"
         v-on:newMsg="newMsg">
     </Pref>
   </div>
@@ -22,7 +17,6 @@
 <script>
 import Question from "../components/Question.vue"
 import Pref from "../components/Pref.vue"
-import questions from "../assets/questions.json"
 
 export default {
   name: 'Chat',
@@ -33,12 +27,9 @@ export default {
   },
   data: function () {
     return {
-      questions: questions,
       newbox: 1,
       num: 0,
       prefShow: false,
-      region: true,
-      prefId: ''
     }
   },
   methods: {
@@ -102,13 +93,6 @@ export default {
         this.newbox++;
         this.num++;
       }, 2000)
-    },
-    /*-------------------------
-      都道府県
-    -------------------------*/
-    prefSelect: function (num) {
-      this.region = false;
-      this.prefId = num;
     }
   }
 }

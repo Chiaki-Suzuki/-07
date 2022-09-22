@@ -9,9 +9,16 @@
 </template>
 
 <script>
+import question from "../assets/questions.json"
+
 export default {
   name: 'Question',
-  props: ['question', 'num', 'newbox']
+  props: ['num'],
+  data: () => {
+    return {
+      question: question
+    }
+  }
 }
 </script>
 

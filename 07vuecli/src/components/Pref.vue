@@ -1,14 +1,14 @@
 <template>
   <div class="chatbox">
       <div class="quiestion col4" v-if="region">
-          <button v-on:click="$emit('prefSelect', 0)">北海道・東北</button>
-          <button v-on:click="$emit('prefSelect', 1)">関東</button>
-          <button v-on:click="$emit('prefSelect', 2)">北陸・甲信越</button>
-          <button v-on:click="$emit('prefSelect', 3)">東海</button>
-          <button v-on:click="$emit('prefSelect', 4)">関西</button>
-          <button v-on:click="$emit('prefSelect', 5)">中国</button>
-          <button v-on:click="$emit('prefSelect', 6)">四国</button>
-          <button v-on:click="$emit('prefSelect', 7)">九州・沖縄</button>
+          <button v-on:click="prefSelect(0)">北海道・東北</button>
+          <button v-on:click="prefSelect(1)">関東</button>
+          <button v-on:click="prefSelect(2)">北陸・甲信越</button>
+          <button v-on:click="prefSelect(3)">東海</button>
+          <button v-on:click="prefSelect(4)">関西</button>
+          <button v-on:click="prefSelect(5)">中国</button>
+          <button v-on:click="prefSelect(6)">四国</button>
+          <button v-on:click="prefSelect(7)">九州・沖縄</button>
       </div>
       <div class="quiestion col4" v-if="prefId === 0">
           <button v-on:click="$emit('newMsg', 11, 0, 'です。', 'ご回答ありがとうございました。', '現在、いただいた条件にて算定しております。結果の送付までしばらくお待ちください。', '')">北海道</button>
@@ -79,7 +79,19 @@
 <script>
 export default {
   name: 'Chat',
-  props: ['region', 'prefId']
+  // props: ['region', 'prefId'],
+  data: () => {
+    return {
+      region: true,
+      prefId: ''
+    }
+  },
+  methods: {
+    prefSelect: function(num) {
+      this.region = false;
+      this.prefId = num;
+    }
+  }
 }
 </script>
 

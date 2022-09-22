@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <div class="chat">
-        <div class="chatbox" ref="test">
+        <div class="chatbox" ref="chatbox">
           <div class="quiestion" v-if="isShow">
             <button v-on:click="roughCalc">ざっくり計算</button>
             <button v-on:click="tightCalc">しっかり計算</button>
@@ -51,11 +51,8 @@ export default {
     }
   },
   mounted: function () {
-    let t = this.$refs.test
-    console.log(t)
-
     // 最初のチャット内容を表示
-    let chatbox = document.querySelector('.chatbox');
+    let chatbox = this.$refs.chatbox
 
     // デフォルトメッセージ１
     chatbox.insertAdjacentHTML('afterbegin', `
@@ -91,7 +88,7 @@ export default {
     },
     // デフォルトメッセージ２ローディング削除
     q1NoLoading: function () {
-      let chatbox = document.querySelector('.chatbox');
+      let chatbox = this.$refs.chatbox
       let noiconGuide = document.querySelector('.chatbox .noicon_guide')
       chatbox.removeChild(noiconGuide)
     },
@@ -121,7 +118,7 @@ export default {
       ざっくり計算
     -------------------------*/
     roughCalc: async function () {
-      let chatbox = document.querySelector('.chatbox');
+      let chatbox = this.$refs.chatbox
       // ボタンを消す
       await setTimeout(this.btnsNoDisp, 500);
 
@@ -143,7 +140,7 @@ export default {
       しっかり計算
     -------------------------*/
     tightCalc: async function () {
-      let chatbox = document.querySelector('.chatbox');
+      let chatbox = this.$refs.chatbox
       // ボタンを消す
       setTimeout(this.btnsNoDisp, 500);
 
