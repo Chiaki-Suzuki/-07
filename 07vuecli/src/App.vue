@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <div class="chat">
-        <div class="chatbox">
+        <div class="chatbox" ref="test">
           <div class="quiestion" v-if="isShow">
             <button v-on:click="roughCalc">ざっくり計算</button>
             <button v-on:click="tightCalc">しっかり計算</button>
@@ -50,7 +50,10 @@ export default {
       isQ2Show: false
     }
   },
-  created: function () {
+  mounted: function () {
+    let t = this.$refs.test
+    console.log(t)
+
     // 最初のチャット内容を表示
     let chatbox = document.querySelector('.chatbox');
 
@@ -214,8 +217,8 @@ export default {
         setTimeout(() => {
           chatbox.insertAdjacentHTML('beforeend', `
           <div class="souba">
-            <div class="soubabox"><img class="img1" src="../実務課題07/images/max.png"><img class="img3" src="../実務課題07/images/300.png"></div>
-            <div class="soubabox"><img class="img2" src="../実務課題07/images/min.png"><img class="img4" src="../実務課題07/images/10.png"></div>
+            <div class="soubabox"><img class="img1" src="/images/max.png"><img class="img3" src="/images/300.png"></div>
+            <div class="soubabox"><img class="img2" src="/images/min.png"><img class="img4" src="/images/10.png"></div>
           </div>
           `)
           resolve();

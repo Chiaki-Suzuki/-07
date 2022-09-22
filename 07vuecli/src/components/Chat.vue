@@ -20,29 +20,26 @@
 </template>
 
 <script>
-import Question from "../components/Question.js"
-import Pref from "../components/Pref.js"
+import Question from "../components/Question.vue"
+import Pref from "../components/Pref.vue"
 import questions from "../assets/questions.json"
 
 export default {
   name: 'Chat',
-  props: {
-    q2box: q2box,
-    noDom: noDom,
-    icon: icon,
-    loadingAnimation: loadingAnimation
-  },
+  props: ['q2box', 'noDom', 'icon', 'loadingAnimation'],
   components: {
     Question,
     Pref
   },
   data: function () {
     return {
+      questions: questions,
       newbox: 1,
       num: 0,
       prefShow: false,
       region: true,
       prefId: ''
+    }
   },
   methods: {
     /*-------------------------

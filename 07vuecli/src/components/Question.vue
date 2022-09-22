@@ -11,11 +11,7 @@
 <script>
 export default {
   name: 'Question',
-  props: {
-    question: question,
-    num: num,
-    newbox: newbox
-  }
+  props: ['question', 'num', 'newbox']
 }
 </script>
 

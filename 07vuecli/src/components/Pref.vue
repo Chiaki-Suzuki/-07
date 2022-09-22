@@ -79,10 +79,7 @@
 <script>
 export default {
   name: 'Chat',
-  props: {
-    region: region,
-    prefId: prefId
-  }
+  props: ['region', 'prefId']
 }
 </script>
 

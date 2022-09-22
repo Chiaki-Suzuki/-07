@@ -46,6 +46,7 @@ module.exports = {
     'padded-blocks': 'off',
     'quotes': 'off',
     'brace-style': 'off',
-    'vue/require-v-for-key': 'off'
+    'vue/require-v-for-key': 'off',
+    'vue/no-use-v-if-with-v-for': 'off'
   },
 };
