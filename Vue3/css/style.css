@@ -1,0 +1,330 @@
+@charset "UTF-8";
+
+/*-------------------------
+  初期化
+-------------------------*/
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  background-color: #eee;
+}
+
+ul, ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*-------------------------
+  グローバル
+-------------------------*/
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+/*-------------------------
+  チャット
+-------------------------*/
+.chat {
+  scroll-behavior: smooth;
+  width: 100%;
+  height: 80vh;
+  overflow-y: scroll;
+  margin: 60px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.chat::-webkit-scrollbar {
+  width: 15px;
+}
+
+.chat::-webkit-scrollbar-track {
+  display: none;
+}
+
+.chat::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border: 3px solid #fff;
+  border-radius: 50em;
+}
+
+.guide {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 0 0 20px 0;
+}
+
+.icon {
+  font-size: 4rem;
+  color: #00bcd4;
+}
+
+.comment {
+  width: calc(100% - 40px);
+}
+
+.comment p{
+  position: relative;
+  display: table;
+  padding: 8px;
+  margin: 10px 0 0 20px;
+  border-radius: 10px;
+  background-color: #eee;
+}
+
+.guide .comment p::before,
+.noicon_guide .comment p::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -15px;
+  margin-top: -10px;
+  border: 8px solid transparent;
+  border-right: 10px solid #eee;
+}
+
+.noicon_guide {
+  width: 80%;
+  margin: -10px 0 30px 0;
+}
+
+.noicon_guide .comment {
+  margin-left: 40px;
+  width: calc(100% - 40px);
+}
+
+.user {
+  width: 80%;
+  margin: 0 0 20px auto;
+}
+
+.user .comment {
+  width: 100%;
+  overflow: hidden;
+}
+
+.user .comment p {
+  float: right;
+  margin: 0 20px 0 0;
+  background-color: #8bc34a;
+  color: #fff;
+}
+
+.user .comment p::after{
+  content: "";
+  right: -15px;
+  border: 8px solid transparent;
+  border-left: 10px solid #8bc34a;
+  position: absolute;
+  margin: 5px 0 0 0;
+}
+
+.read {
+  position: absolute;
+  left: -33px;
+  bottom: 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.quiestion {
+  width: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.quiestion button {
+  width: 48%;
+  height: 100px;
+  font-weight: bold;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #eee;
+  transition: .3s;
+  outline: none;
+}
+
+.quiestion.col3 button{
+  width: 30%;
+}
+
+.quiestion.col4 {
+  width: 70%;
+  justify-content: normal;
+}
+.quiestion.col4 button{
+  width: calc((100% - 45px) / 4);
+  margin: 0 0 15px 15px;
+}
+
+.quiestion.col4 button:nth-of-type(4n+1) {
+  margin-left: 0;
+}
+
+.quiestion button:hover {
+  background-color: #ffc107;
+  border: 1px solid #ffc107;
+  color: #fff;
+  box-shadow: 0 0 8px #ffc107;
+}
+
+.souba {
+  width: 50%;
+  margin: 0 auto 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.soubabox {
+  width: 45%;
+}
+
+.souba img{
+  text-align: center;
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.souba img:first-of-type{
+  width: 80px;
+}
+
+/*-------------------------
+  画像描画アニメーション
+-------------------------*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.img1 {
+  animation: fadeIn 1s ease 1s 1 normal backwards;
+}
+.img2 {
+  animation: fadeIn 1s ease 3s 1 normal backwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.img3 {
+  animation: fadeSlideIn 1s ease 2s 1 normal backwards;
+}
+.img4 {
+  animation: fadeSlideIn 1s ease 4s 1 normal backwards;
+}
+
+/*-------------------------
+  チャット入力中
+-------------------------*/
+@keyframes pulse {
+  from {
+    opacity: 1;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: .35;
+    transform: translateY(-3px);
+  }
+}
+
+.spinner-box {
+  width: 90px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 10px;
+  position: relative;
+}
+
+.guide .spinner-box,
+.noicon_guide .spinner-box {
+  background-color: #eee;
+  margin: 10px 0 0 20px;
+}
+
+.guide .spinner-box::before,
+.noicon_guide .spinner-box::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -15px;
+  margin-top: -10px;
+  border: 8px solid transparent;
+  border-right: 10px solid #eee;
+}
+
+.user .spinner-box {
+  background-color: #8bc34a;
+  float: right;
+  margin: 0px 20px 0 0;
+}
+
+.user .spinner-box::after{
+  content: "";
+  right: -15px;
+  border: 8px solid transparent;
+  border-left: 10px solid #8bc34a;
+  position: absolute;
+}
+
+.pulse-container {
+  width: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pulse-bubble {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.guide .pulse-bubble,
+.noicon_guide .pulse-bubble{
+  background-color: #aaa;
+}
+
+.user .pulse-bubble {
+  background-color: #fff;
+}
+
+.pulse-bubble-1 {
+    animation: pulse .4s ease 0s infinite alternate;
+}
+.pulse-bubble-2 {
+    animation: pulse .4s ease .2s infinite alternate;
+}
+.pulse-bubble-3 {
+    animation: pulse .4s ease .4s infinite alternate;
+}

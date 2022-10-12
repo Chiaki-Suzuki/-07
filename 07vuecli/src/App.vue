@@ -214,8 +214,8 @@ export default {
         setTimeout(() => {
           chatbox.insertAdjacentHTML('beforeend', `
           <div class="souba">
-            <div class="soubabox"><img class="img1" src="/images/max.png"><img class="img3" src="/images/300.png"></div>
-            <div class="soubabox"><img class="img2" src="/images/min.png"><img class="img4" src="/images/10.png"></div>
+            <div class="soubabox"><img class="img1" src="/./img/max.png"><img class="img3" src="/./img/300.png"></div>
+            <div class="soubabox"><img class="img2" src="/./img/min.png"><img class="img4" src="/./img/10.png"></div>
           </div>
           `)
           resolve();

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import question from "../assets/questions.json"
+import question from "./questions.json"
 
 export default {
   name: 'Question',
