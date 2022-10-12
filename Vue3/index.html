@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap-reboot.min.css">
         <link rel="stylesheet" href="css/style.css">
+        <script src="https://unpkg.com/vue@next"></script>
     </head>
     <body>
         <div id="app">
@@ -19,14 +20,18 @@
                             <button v-on:click="tightCalc">しっかり計算</button>
                         </div>
                     </div>
-                    <chat v-on:child-msg="msg" v-on:auto-scroll="autoScroll" v-bind:q2box="isQ2Show" v-bind:no-dom="noDom" v-bind:icon="icon" v-bind:loading-animation="loadingAnimation"></chat>
+                    <chat v-on:child-msg="msg"
+                        v-on:auto-scroll="autoScroll"
+                        v-bind:q2box="isQ2Show"
+                        v-bind:no-dom="noDom"
+                        v-bind:icon="icon"
+                        v-bind:loading-animation="loadingAnimation">
+                    </chat>
                 </div>
             </div>
         </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="js/components/question.js"></script>
     <script src="js/components/pref.js"></script>
-    <script src="js/components/chat.js"></script>
     <script src="js/main.js"></script>
 </html>
