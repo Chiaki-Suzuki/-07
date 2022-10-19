@@ -51,6 +51,7 @@ module.exports = {
     // 'vue/no-parsing-error': [2, { 'x-invalid-namespace ': false }],
     'vue/no-parsing-error': 'off',
     'vue/no-reserved-component-names': 'off',
+    'vue/no-setup-props-destructure': 'off',
     'vue/no-side-effects-in-computed-properties': 'off',
     'vue/no-unused-vars': 'off',
     'vue/no-use-v-if-with-v-for': 'off',
