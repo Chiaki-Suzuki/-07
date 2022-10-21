@@ -11,6 +11,9 @@ export let addMsg = () => {
   </div>
   `
 
+  /*-------------------------
+    メッセージ表示
+  -------------------------*/
   let msg = function (chatbox, icon, className, num, msg, sec, next, qnum) {
     return new Promise(resolve => {
       // ボタン押した直後なので早めに表示
@@ -93,5 +96,24 @@ export let addMsg = () => {
     }, sec);
   }
 
-  return { msg }
+  /*-------------------------
+    相場表示
+  -------------------------*/
+  let souba = function (chatbox) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        chatbox.insertAdjacentHTML('beforeend', `
+        <div class="souba">
+          <div class="soubabox"><img class="img1" src="./images/max.png"><img class="img3" src="./images/300.png"></div>
+          <div class="soubabox"><img class="img2" src="./images/min.png"><img class="img4" src="./images/10.png"></div>
+        </div>
+        `)
+        resolve();
+      }, 1000);
+      // 自動スクロール
+      autoScroll(2000);
+    })
+  }
+
+  return { msg, souba }
 }

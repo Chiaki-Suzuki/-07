@@ -2,18 +2,8 @@
   <HelloWorld></HelloWorld>
   <div class="container">
     <div class="chat">
-      <div class="chatbox" ref="chatbox">
-        <div class="quiestion" v-if="isShow">
-          <button v-on:click="roughCalc">ざっくり計算</button>
-          <button v-on:click="tightCalc">しっかり計算</button>
-        </div>
-      </div>
-      <Chat
-        v-on:auto-scroll="autoScroll"
-        v-bind:q2box="isQ2Show"
-        v-bind:no-dom="noDom"
-        v-bind:icon="icon">
-      </Chat>
+      <div class="chatbox" ref="chatbox"></div>
+      <Chat></Chat>
     </div>
   </div>
 </template>
@@ -31,131 +21,6 @@ export default {
   components: {
     Chat,
     HelloWorld
-  },
-  setup() {
-    let noDom = '';
-    let icon = `
-    <div class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
-    `
-    let isShow = ref(false)
-
-    let chatbox = ref(null)
-    let { msg } = addMsg();
-    /*-------------------------
-      最初のチャット
-    -------------------------*/
-    onMounted(async () => {
-      // デフォルトメッセージ１
-      await msg(chatbox.value, icon, 'guide', 0, '２つの方法で相場を計算することができます。', 0);
-      // デフォルトメッセージ２
-      await msg(chatbox.value, noDom, 'noicon_guide', 0, 'どちらがご希望に近いですか？', 2000);
-      // ボタン表示
-      let btnsDisp = function () {
-        setTimeout(() => {
-          isShow.value = true;
-        }, 2000);
-      };
-      await btnsDisp()
-      })
-
-      // ボタン非表示
-      let btnsNoDisp = function () {
-        return new Promise(resolve => {
-          isShow.value = false;
-          resolve();
-        });
-      };
-
-      /*-------------------------
-        ざっくり計算
-      -------------------------*/
-      let roughCalc = async function () {
-        // ボタンを消す
-        await setTimeout(btnsNoDisp, 500);
-
-        // メッセージ１
-        await msg(chatbox.value, noDom, 'user', 0, 'ざっくり計算です。', 500)
-        // メッセージ２
-        await msg(chatbox.value, icon, 'guide', 1, 'かしこまりました。', 2000)
-        // // メッセージ３
-        await msg(chatbox.value, noDom, 'noicon_guide', 1, 'データをもとに、あなたの相場をざっくり計算します。', 2000)
-        // // メッセージ４
-        await msg(chatbox.value, icon, 'guide', 2, '希望されるお風呂は、どのような形式ですか？', 2000)
-
-        // 質問２表示
-        await q2Disp();
-        // // 自動スクロール
-        await autoScroll(2000);
-      }
-
-      /*-------------------------
-        しっかり計算
-      -------------------------*/
-      let tightCalc = async function () {
-        // ボタンを消す
-        await setTimeout(btnsNoDisp, 500);
-
-        // メッセージ１
-        await msg(chatbox.value, noDom, 'user', 0, 'しっかり計算です。', 500);
-        // メッセージ２
-        await msg(chatbox.value, icon, 'guide', 1, 'かしこまりました。', 2000);
-        // メッセージ３
-        await msg(chatbox.value, noDom, 'noicon_guide', 1, 'マンション・アパートのお風呂リフォーム相場は', 2000);
-        // メッセージ４
-        await souba(chatbox.value);
-        // メッセージ５
-        await msg(chatbox.value, noDom, 'noicon_guide', 2, 'あなたの費用を、データをもとにしっかり計算します。', 5000);
-        // メッセージ６
-        await msg(chatbox.value, icon, 'guide', 2, '希望されるお風呂は、どのような形式ですか？', 2000)
-
-        // 質問２表示
-        await q2Disp();
-        // // 自動スクロール
-        await autoScroll(2000);
-      }
-
-      let souba = function (chatbox) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          chatbox.insertAdjacentHTML('beforeend', `
-          <div class="souba">
-            <div class="soubabox"><img class="img1" src="./images/max.png"><img class="img3" src="./images/300.png"></div>
-            <div class="soubabox"><img class="img2" src="./images/min.png"><img class="img4" src="./images/10.png"></div>
-          </div>
-          `)
-          resolve();
-        }, 1000);
-        // 自動スクロール
-        autoScroll(2000);
-      })
-    }
-
-    // 自動スクロール
-    let autoScroll = function (sec) {
-      setTimeout(() => {
-        let chat = document.querySelector('.chat');
-        chat.scrollTop = chat.scrollHeight;
-      }, sec);
-    }
-
-    // 質問２表示
-    let isQ2Show = ref(false);
-    let q2Disp = function () {
-      setTimeout(() => {
-        isQ2Show.value = true;
-      }, 2000)
-    }
-
-    return {
-      chatbox,
-      isShow,
-      roughCalc,
-      tightCalc,
-      isQ2Show,
-      noDom,
-      icon,
-      autoScroll
-    }
   }
 }
 </script>
